@@ -106,3 +106,26 @@ func TestFromJSONDeleteFeiraRequest_JSONDecodeError(t *testing.T) {
 	require.NotNil(t, err)
 	require.Nil(t, itemRequest)
 }
+
+
+func TestFromJSONGetNomeRequest(t *testing.T) {
+
+	fakeItem := dto.GetNomeRequest{}
+	faker.FakeData(&fakeItem)
+
+	json, err := json.Marshal(fakeItem)
+	require.Nil(t, err)
+
+	itemRequest, err := dto.FromJSONGetNameRequest(strings.NewReader(string(json)))
+	require.Nil(t, err)	
+	require.Equal(t, itemRequest.NomeFreira, fakeItem.NomeFreira)
+
+}
+
+
+func TestFromJSONGetNomeRequest_JSONDecodeError(t *testing.T) {
+	itemRequest, err := dto.FromJSONGetNameRequest(strings.NewReader("{"))
+
+	require.NotNil(t, err)
+	require.Nil(t, itemRequest)
+}

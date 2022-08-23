@@ -49,6 +49,11 @@ type DeleteFeiraRequest struct {
 	Id int16 `json:"id"`
 }
 
+
+type GetNomeRequest struct {
+	NomeFreira string `json:"nomefreira"`
+}
+
 // FromJSONCreateFeiraRequest converte json para um CreateFeiraRequest struct
 func FromJSONCreateFeiraRequest(body io.Reader) (*CreateFeiraRequest, error) {
 	CreateFeiraRequest := CreateFeiraRequest{}
@@ -78,4 +83,14 @@ func FromJSONDeleteFeiraRequest(body io.Reader) (*DeleteFeiraRequest, error) {
 	}
 
 	return &DeleteFeiraRequest, nil
+}
+
+
+func FromJSONGetNameRequest(body io.Reader) (*GetNomeRequest, error) {
+	GetNomeRequest := GetNomeRequest{}
+	if err := json.NewDecoder(body).Decode(&GetNomeRequest); err != nil {
+		return nil, err
+	}
+
+	return &GetNomeRequest, nil
 }
