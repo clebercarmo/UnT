@@ -7,7 +7,6 @@ import (
 
 // CreateFeiraRequest uma representação do request para criação de um novo registro
 type CreateFeiraRequest struct {
-	Id         int16  `json:"id"`
 	Long       string `json:"long"`
 	Lat        string `json:"lat"`
 	SetCens    string `json:"setcens"`
@@ -27,6 +26,7 @@ type CreateFeiraRequest struct {
 }
 
 type UpdateFeiraRequest struct {
+	Id         int    `json:"id"`
 	Long       string `json:"long"`
 	Lat        string `json:"lat"`
 	SetCens    string `json:"setcens"`
@@ -46,7 +46,7 @@ type UpdateFeiraRequest struct {
 }
 
 type DeleteFeiraRequest struct {
-	Id int16 `json:"id"`
+	Id int `json:"id"`
 }
 
 

@@ -9,7 +9,6 @@ import (
 // Feira entidade da tabela
 type Feira struct {
 	gorm.Model
-	Id         int16
 	Long       string
 	Lat        string
 	SetCens    string

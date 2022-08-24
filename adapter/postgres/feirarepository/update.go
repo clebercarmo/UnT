@@ -5,9 +5,11 @@ import (
 	"utest/core/dto"
 )
 
-func (repository repository) Create(feiraRequest *dto.CreateFeiraRequest) (*domain.Feira, error) {
+func (repository repository) Update(feiraRequest *dto.UpdateFeiraRequest)  (*domain.Feira, error){
 
-	feira := domain.Feira{}
+	var feira domain.Feira
+	repository.db.First(&feira, feiraRequest.Id) // find product with integer primary key
+
 	feira.Long = feiraRequest.Long
 	feira.Lat = feiraRequest.Lat
 	feira.SetCens = feiraRequest.SetCens
@@ -25,7 +27,7 @@ func (repository repository) Create(feiraRequest *dto.CreateFeiraRequest) (*doma
 	feira.Bairro = feiraRequest.Bairro
 	feira.Referencia = feiraRequest.Referencia
 
-	repository.db.Create(&feira)
+	repository.db.Save(&feira)
 
 	return &feira, nil
 

@@ -20,7 +20,6 @@ func TestFromJSONCreateFeiraRequest(t *testing.T) {
 	itemRequest, err := dto.FromJSONCreateFeiraRequest(strings.NewReader(string(json)))
 
 	require.Nil(t, err)
-	require.Equal(t, itemRequest.Id, fakeItem.Id)
 	require.Equal(t, itemRequest.Lat, fakeItem.Lat)
 	require.Equal(t, itemRequest.Long, fakeItem.Long)
 	require.Equal(t, itemRequest.SetCens, fakeItem.SetCens)

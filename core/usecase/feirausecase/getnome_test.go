@@ -28,7 +28,6 @@ func TestGetNome(t *testing.T) {
 
 	require.Nil(t, err)
 	require.NotEmpty(t, feira.ID)
-	require.Equal(t, feira.Id, fakeDBFeira.Id)
 	require.Equal(t, feira.Long, fakeDBFeira.Long)
 	require.Equal(t, feira.Lat, fakeDBFeira.Lat)
 	require.Equal(t, feira.SetCens, fakeDBFeira.SetCens)
