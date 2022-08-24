@@ -175,6 +175,23 @@ func (mr *MockFeiraRepositoryMockRecorder) Create(FeiraRequest interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockFeiraRepository)(nil).Create), FeiraRequest)
 }
 
+// Create mocks base method.
+func (m *MockFeiraRepository) GetNome(FeiraRequest *dto.GetNomeRequest) (*domain.Feira, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetNome", FeiraRequest)
+	ret0, _ := ret[0].(*domain.Feira)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockFeiraRepositoryMockRecorder) GetNome(FeiraRequest interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNome", reflect.TypeOf((*MockFeiraRepository)(nil).GetNome), FeiraRequest)
+}
+
+
+
 // Update mocks base method.
 func (m *MockFeiraRepository) Update(FeiraRequest *dto.UpdateFeiraRequest) (*domain.Feira, error) {
 	m.ctrl.T.Helper()

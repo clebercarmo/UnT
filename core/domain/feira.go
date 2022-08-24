@@ -38,10 +38,10 @@ type FeiraService interface {
 
 // FeiraUserCase é o contrato com a camada de negocio
 type FeiraUseCase interface {
-	Create(criatefeiraRequest *dto.CreateFeiraRequest, request *http.Request)
-	Update(updatefeiraRequest *dto.UpdateFeiraRequest, request *http.Request)
-	Delete(deletefeiraRequest *dto.DeleteFeiraRequest, request *http.Request)
-	GetNome(getnomeRequest *dto.GetNomeRequest, request *http.Request)
+	Create(criatefeiraRequest *dto.CreateFeiraRequest) (*Feira, error)
+	Update(updatefeiraRequest *dto.UpdateFeiraRequest) (*Feira, error)
+	Delete(deletefeiraRequest *dto.DeleteFeiraRequest) error
+	GetNome(getnomeRequest *dto.GetNomeRequest) (*Feira, error)
 }
 
 // FeiraRepository é o contrato da camada de banco de dados

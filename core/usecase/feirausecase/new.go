@@ -6,7 +6,7 @@ type usecase struct {
 	repository domain.FeiraRepository
 }
 
-func Init(repository domain.FeiraRepository) domain.FeiraUseCase {
+func New(repository domain.FeiraRepository) domain.FeiraUseCase {
 	return &usecase{
 		repository: repository,
 	}

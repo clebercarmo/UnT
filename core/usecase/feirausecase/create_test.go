@@ -13,38 +13,52 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-	fakeRequestProduct := dto.CreateProductRequest{}
-	fakeDBProduct := domain.Product{}
-	faker.FakeData(&fakeRequestProduct)
-	faker.FakeData(&fakeDBProduct)
+	fakeRequestFeira := dto.CreateFeiraRequest{}
+	fakeDBFeira := domain.Feira{}
+	faker.FakeData(&fakeRequestFeira)
+	faker.FakeData(&fakeDBFeira)
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
-	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
-	mockProductRepository.EXPECT().Create(&fakeRequestProduct).Return(&fakeDBProduct, nil)
+	mockFeiraRepository := mocks.NewMockFeiraRepository(mockCtrl)
+	mockFeiraRepository.EXPECT().Create(&fakeRequestFeira).Return(&fakeDBFeira, nil)
 
-	sut := productusecase.New(mockProductRepository)
-	product, err := sut.Create(&fakeRequestProduct)
+	sut := feirausecase.New(mockFeiraRepository)
+	feira, err := sut.Create(&fakeRequestFeira)
 
 	require.Nil(t, err)
-	require.NotEmpty(t, product.ID)
-	require.Equal(t, product.Name, fakeDBProduct.Name)
-	require.Equal(t, product.Price, fakeDBProduct.Price)
-	require.Equal(t, product.Description, fakeDBProduct.Description)
+	require.NotEmpty(t, feira.ID)
+	require.Equal(t, feira.Id, fakeDBFeira.Id)
+	require.Equal(t, feira.Long, fakeDBFeira.Long)
+	require.Equal(t, feira.Lat, fakeDBFeira.Lat)
+	require.Equal(t, feira.SetCens, fakeDBFeira.SetCens)
+	require.Equal(t, feira.AreaP, fakeDBFeira.AreaP)
+	require.Equal(t, feira.CodDist, fakeDBFeira.CodDist)
+	require.Equal(t, feira.Distrito, fakeDBFeira.Distrito)
+	require.Equal(t, feira.CodSubPref, fakeDBFeira.CodSubPref)
+	require.Equal(t, feira.SubPrere, fakeDBFeira.SubPrere)
+	require.Equal(t, feira.Regiao5, fakeDBFeira.Regiao5)
+	require.Equal(t, feira.Regiao8, fakeDBFeira.Regiao8)
+	require.Equal(t, feira.NomeFreira, fakeDBFeira.NomeFreira)
+	require.Equal(t, feira.Registo, fakeDBFeira.Registo)
+	require.Equal(t, feira.Logradouro, fakeDBFeira.Logradouro)
+	require.Equal(t, feira.Numero, fakeDBFeira.Numero)
+	require.Equal(t, feira.Bairro, fakeDBFeira.Bairro)
+	require.Equal(t, feira.Referencia, fakeDBFeira.Referencia)
 }
 
 func TestCreate_Error(t *testing.T) {
-	fakeRequestProduct := dto.CreateProductRequest{}
-	faker.FakeData(&fakeRequestProduct)
+	fakeRequestFeira := dto.CreateFeiraRequest{}
+	faker.FakeData(&fakeRequestFeira)
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
-	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
-	mockProductRepository.EXPECT().Create(&fakeRequestProduct).Return(nil, fmt.Errorf("ANY ERROR"))
+	mockFeiraRepository := mocks.NewMockFeiraRepository(mockCtrl)
+	mockFeiraRepository.EXPECT().Create(&fakeRequestFeira).Return(nil, fmt.Errorf("ANY ERROR"))
 
-	sut := productusecase.New(mockProductRepository)
-	product, err := sut.Create(&fakeRequestProduct)
+	sut := feirausecase.New(mockFeiraRepository)
+	feira, err := sut.Create(&fakeRequestFeira)
 
 	require.NotNil(t, err)
-	require.Nil(t, product)
+	require.Nil(t, feira)
 }
