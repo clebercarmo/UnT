@@ -47,7 +47,7 @@ type FeiraUseCase interface {
 // FeiraRepository é o contrato da camada de banco de dados
 type FeiraRepository interface {
 	Create(criatefeiraRequest *dto.CreateFeiraRequest) (*Feira, error)
-	Update(updatefeiraRequest *dto.UpdateFeiraRequest) (*Feira, int16, error)
-	Delete(deletefeiraRequest *dto.DeleteFeiraRequest) (int16, error)
-	GetNome(getnomeRequest	*dto.GetNomeRequest) (string, error)
+	Update(updatefeiraRequest *dto.UpdateFeiraRequest) (*Feira, error)
+	Delete(deletefeiraRequest *dto.DeleteFeiraRequest) error
+	GetNome(getnomeRequest	*dto.GetNomeRequest) (*Feira, error)
 }

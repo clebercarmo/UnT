@@ -2,12 +2,12 @@ package feirausecase
 
 import "utest/core/domain"
 
-type usercase struct {
+type usecase struct {
 	repository domain.FeiraRepository
 }
 
 func Init(repository domain.FeiraRepository) domain.FeiraUseCase {
-	return &usercase{
+	return &usecase{
 		repository: repository,
 	}
 }
