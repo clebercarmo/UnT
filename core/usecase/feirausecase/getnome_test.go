@@ -3,10 +3,11 @@ package feirausecase_test
 import (
 	"fmt"
 	"testing"
-	"utest/core/dto"
 	"utest/core/domain"
 	"utest/core/domain/mocks"
+	"utest/core/dto"
 	"utest/core/usecase/feirausecase"
+
 	"github.com/bxcodec/faker/v4"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
@@ -27,7 +28,7 @@ func TestGetNome(t *testing.T) {
 	feira, err := sut.GetNome(&fakeRequestFeira)
 
 	require.Nil(t, err)
-	require.NotEmpty(t, feira.ID)
+	require.NotEmpty(t, feira.Id)
 	require.Equal(t, feira.Long, fakeDBFeira.Long)
 	require.Equal(t, feira.Lat, fakeDBFeira.Lat)
 	require.Equal(t, feira.SetCens, fakeDBFeira.SetCens)
@@ -44,7 +45,7 @@ func TestGetNome(t *testing.T) {
 	require.Equal(t, feira.Numero, fakeDBFeira.Numero)
 	require.Equal(t, feira.Bairro, fakeDBFeira.Bairro)
 	require.Equal(t, feira.Referencia, fakeDBFeira.Referencia)
-	
+
 }
 
 func TestGetNome_Error(t *testing.T) {

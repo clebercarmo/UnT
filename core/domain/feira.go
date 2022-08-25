@@ -1,30 +1,29 @@
 package domain
 
 import (
-	"gorm.io/gorm"
 	"net/http"
 	"utest/core/dto"
 )
 
 // Feira entidade da tabela
 type Feira struct {
-	gorm.Model
-	Long       string
-	Lat        string
-	SetCens    string
-	AreaP      string
-	CodDist    string
-	Distrito   string
-	CodSubPref string
-	SubPrere   string
-	Regiao5    string
-	Regiao8    string
-	NomeFreira string
-	Registo    string
-	Logradouro string
-	Numero     string
-	Bairro     string
-	Referencia string
+	Id		   int32   	`json:"id"`
+	Long       string  	`json:"long"`
+	Lat        string  	`json:"lat"`
+	SetCens    string	`json:"setcens"`
+	AreaP      string	`json:"arep"`
+	CodDist    string	`json:"coddist"`
+	Distrito   string	`json:"distrito"`
+	CodSubPref string	`json:"codsubpref"`
+	SubPrere   string	`json:"subprere"`
+	Regiao5    string	`json:"regiao5"`
+	Regiao8    string	`json:"regiao8"`
+	NomeFreira string	`json:"nomefreira"`
+	Registo    string	`json:"registro"`
+	Logradouro string	`json:"logradouro"`
+	Numero     string	`json:"numero"`
+	Bairro     string	`json:"bairro"`
+	Referencia string	`json:"referencia"`
 }
 
 // FeiraService contrato da camada http
