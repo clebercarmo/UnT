@@ -7,7 +7,7 @@ import (
 
 // Feira entidade da tabela
 type Feira struct {
-	Id		   int32   	`json:"id"`
+	ID		   int32   	`json:"id"`
 	Long       string  	`json:"long"`
 	Lat        string  	`json:"lat"`
 	SetCens    string	`json:"setcens"`

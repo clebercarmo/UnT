@@ -1,40 +1,61 @@
 package postgres
 
 import (
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
-	"utest/core/domain"
+	"context"
+	"fmt"
+	"log"
+	"os"
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/jackc/pgconn"
+	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
+	_ "github.com/golang-migrate/migrate/v4/database/pgx" //driver pgx used to run migrations
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
+
 
 
 type PoolInterface interface {
 	Close()
-	Create(model interface{})  *gorm.DB
-	Find(dest interface{}, conds ...interface{}) *gorm.DB
-	Save(model interface{})  *gorm.DB 
-	First(dest interface{}, conds ...interface{}) *gorm.DB 
-	Delete(value interface{}, conds ...interface{}) *gorm.DB 
+	Exec(ctx context.Context, sql string, arguments ...interface{}) (pgconn.CommandTag, error)
+	Query(ctx context.Context, sql string, args ...interface{}) (pgx.Rows, error)
+	QueryRow(ctx context.Context, sql string, args ...interface{}) pgx.Row
+	QueryFunc(
+		ctx context.Context,
+		sql string,
+		args []interface{},
+		scans []interface{},
+		f func(pgx.QueryFuncRow) error,
+	) (pgconn.CommandTag, error)
+	SendBatch(ctx context.Context, b *pgx.Batch) pgx.BatchResults
+	Begin(ctx context.Context) (pgx.Tx, error)
+	BeginFunc(ctx context.Context, f func(pgx.Tx) error) error
+	BeginTxFunc(ctx context.Context, txOptions pgx.TxOptions, f func(pgx.Tx) error) error
 	
 }
 
-// GetConnection retorna uma conexao do banco sqllite
-func GetConnection() (*gorm.DB, error) {
+// GetConnection return connection pool from postgres drive PGX
+func GetConnection(context context.Context) *pgxpool.Pool {
+	databaseURL := os.Getenv("urldatabase")
+	conn, err := pgxpool.Connect(context, "postgres"+databaseURL)
 
-	db, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
-	
 	if err != nil {
-		return nil, err
+		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		os.Exit(1)
 	}
-	return db, nil
 
+	return conn
 }
 
-// RunMigrations roda a criação e carga dos dados
-func RunMigrations() error{
-	db, err := GetConnection();
+// RunMigrations run scripts on path database/migrations
+func RunMigrations() {
+	databaseURL := os.Getenv("urldatabase")
+	m, err := migrate.New("file://database/migrations", "pgx"+databaseURL)
 	if err != nil {
-		return  err
-	} 
-	db.AutoMigrate(&domain.Feira{})
-	return nil
+		log.Println(err)
+	}
+
+	if err := m.Up(); err != nil {
+		log.Println(err)
+	}
 }
