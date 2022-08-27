@@ -5,7 +5,6 @@ import (
 	"testing"
 	"utest/adapter/postgres/feirarepository"
 	"utest/core/dto"
-
 	"github.com/bxcodec/faker/v4"
 	"github.com/pashagolub/pgxmock"
 	"github.com/stretchr/testify/require"
@@ -26,8 +25,7 @@ func TestDelete(t *testing.T) {
 	defer mock.Close()
 
 	mock.ExpectQuery("delete from freira (.+)").
-		WithArgs(1).
-		WillReturnRows()
+		WithArgs(1).RowsWillBeClosed()
 
 	sut := feirarepository.New(mock)
 	err := sut.Delete(&fakeFeiraRequest)
