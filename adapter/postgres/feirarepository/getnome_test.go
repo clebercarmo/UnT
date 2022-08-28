@@ -26,7 +26,7 @@ func setupGetNome() ([]string, dto.GetNomeRequest, domain.Feira, pgxmock.PgxPool
 func TestGetNome(t *testing.T) {
 	cols, fakeFeiraRequest, fakeFeiraDBResponse, mock := setupGetNome()
 	defer mock.Close()
-	mock.ExpectQuery("SELECT * FROM feira (.+)").WithArgs(
+	mock.ExpectQuery("SELECT * FROM feira WHERE (.+)").WithArgs(
 		fakeFeiraRequest.NomeFreira,
 		
 	).WillReturnRows(pgxmock.NewRows(cols).AddRow(
