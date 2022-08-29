@@ -1,3 +1,4 @@
 .env
 utest
 coverage.txt
+info.log
