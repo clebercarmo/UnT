@@ -17,3 +17,4 @@ CREATE TABLE feira (
 	bairro     VARCHAR(50) NOT NULL,	
 	referencia VARCHAR(50) NOT NULL	  
 );
+CREATE UNIQUE INDEX nomefreira_idx ON public.feira (nomefreira);

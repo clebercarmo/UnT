@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"github.com/spf13/viper"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/golang-migrate/migrate/v4/database/pgx" //driver pgx used to run migrations
+	_ "github.com/lib/pq"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
@@ -36,8 +38,8 @@ type PoolInterface interface {
 
 // GetConnection return connection pool from postgres drive PGX
 func GetConnection(context context.Context) *pgxpool.Pool {
-	databaseURL := os.Getenv("urldatabase")
-	conn, err := pgxpool.Connect(context, databaseURL)
+	databaseURL := viper.GetString("database.url")
+	conn, err := pgxpool.Connect(context, "postgres"+databaseURL)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
@@ -49,7 +51,9 @@ func GetConnection(context context.Context) *pgxpool.Pool {
 
 // RunMigrations run scripts on path database/migrations
 func RunMigrations() {
-	databaseURL := os.Getenv("urldatabase")
+	databaseURL := viper.GetString("database.url")
+
+
 	m, err := migrate.New("file://database/migrations", "pgx"+databaseURL)
 	if err != nil {
 		log.Println(err)

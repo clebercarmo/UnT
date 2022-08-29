@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/spf13/viper"
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
 	"log"
 	"net/http"
-	"os"
 	_ "utest/adapter/http/rest/docs"
 	"utest/adapter/http/rest/middleware"
 	"utest/adapter/postgres"
@@ -16,7 +16,11 @@ import (
 
 func init() {
 
-	//CARGA BASE.
+	viper.SetConfigFile(`config.json`)
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(err)
+	}
 
 }
 
@@ -25,7 +29,7 @@ func init() {
 // @contact.name Cleber
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @host localhost:port
+// @host localhost:3000
 // @BasePath /
 func main() {
 
@@ -38,7 +42,7 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
+	router.PathPrefix("/api/swagger/").Handler(httpSwagger.WrapHandler)
 
 	jsonApiRouter := router.PathPrefix("/").Subrouter()
 	jsonApiRouter.Use(middleware.Cors)
@@ -48,7 +52,7 @@ func main() {
 	jsonApiRouter.Handle("/api/feiras/{id}", http.HandlerFunc(feiraService.Update)).Methods("DELETE")
 	jsonApiRouter.Handle("/api/feiras/{nome_feira}/nomes", http.HandlerFunc(feiraService.GetNome)).Methods("GET")
 
-	serverport := os.Getenv("serverport")
+	serverport := viper.GetString("server.port")
 
 	log.Printf("LISTEN ON PORT: %v", serverport)
 	http.ListenAndServe(fmt.Sprintf(":%v", serverport), router)
