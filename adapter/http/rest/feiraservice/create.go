@@ -13,7 +13,7 @@ import (
 // @Produce  json
 // @Param feira body dto.CreateFeiraRequest true "feira"
 // @Success 200 {object} domain.Feira
-// @Router /feira [post]
+// @Router /api/feiras [post]
 func (service service) Create(response http.ResponseWriter, request *http.Request) {
 	feiraRequest, err := dto.FromJSONCreateFeiraRequest(request.Body)
 

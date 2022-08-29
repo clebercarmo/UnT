@@ -12,7 +12,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} domain.Feira
-// @Router /feira [get]
+// @Router /api/feiras/{nome_feira}/nomes [get]
 func (service service) GetNome(response http.ResponseWriter, request *http.Request) {
 	feiraRequest, err := dto.FromJSONGetNameRequest(request.Body)
 

@@ -37,7 +37,7 @@ type PoolInterface interface {
 // GetConnection return connection pool from postgres drive PGX
 func GetConnection(context context.Context) *pgxpool.Pool {
 	databaseURL := os.Getenv("urldatabase")
-	conn, err := pgxpool.Connect(context, "postgres"+databaseURL)
+	conn, err := pgxpool.Connect(context, databaseURL)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)

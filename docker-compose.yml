@@ -5,8 +5,8 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: DfzKF@U!5zGBA!
-      POSTGRES_PASSWORD: "w@m3q@9JWEMY&QcW"
+      POSTGRES_USER: DfzKFU!5zGBA!
+      POSTGRES_PASSWORD: "wm3q9JWEMY&QcW"
       POSTGRES_DB: ufeiradb
     ports:
       - "15432:5432"

@@ -1,0 +1,195 @@
+basePath: /
+definitions:
+  domain.Feira:
+    properties:
+      arep:
+        type: string
+      bairro:
+        type: string
+      coddist:
+        type: string
+      codsubpref:
+        type: string
+      distrito:
+        type: string
+      id:
+        type: integer
+      lat:
+        type: string
+      logradouro:
+        type: string
+      long:
+        type: string
+      nomefreira:
+        type: string
+      numero:
+        type: string
+      referencia:
+        type: string
+      regiao5:
+        type: string
+      regiao8:
+        type: string
+      registro:
+        type: string
+      setcens:
+        type: string
+      subprere:
+        type: string
+    type: object
+  dto.CreateFeiraRequest:
+    properties:
+      areap:
+        type: string
+      bairro:
+        type: string
+      coddist:
+        type: string
+      codsubpref:
+        type: string
+      distrito:
+        type: string
+      lat:
+        type: string
+      logradouro:
+        type: string
+      long:
+        type: string
+      nomefreira:
+        type: string
+      numero:
+        type: string
+      referencia:
+        type: string
+      regiao5:
+        type: string
+      regiao8:
+        type: string
+      registro:
+        type: string
+      setcens:
+        type: string
+      subprere:
+        type: string
+    type: object
+  dto.UpdateFeiraRequest:
+    properties:
+      areap:
+        type: string
+      bairro:
+        type: string
+      coddist:
+        type: string
+      codsubpref:
+        type: string
+      distrito:
+        type: string
+      id:
+        type: integer
+      lat:
+        type: string
+      logradouro:
+        type: string
+      long:
+        type: string
+      nomefreira:
+        type: string
+      numero:
+        type: string
+      referencia:
+        type: string
+      regiao5:
+        type: string
+      regiao8:
+        type: string
+      registro:
+        type: string
+      setcens:
+        type: string
+      subprere:
+        type: string
+    type: object
+host: localhost:port
+info:
+  contact:
+    name: Cleber
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: UTest
+  version: 1.0.0
+paths:
+  /api/feiras:
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova feira
+      parameters:
+      - description: feira
+        in: body
+        name: feira
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateFeiraRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Feira'
+      summary: Cria um registro de feira
+      tags:
+      - feira
+  /api/feiras/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Apaga uma feira
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Feira'
+      summary: Apaga um registro de feira
+      tags:
+      - feira
+    put:
+      consumes:
+      - application/json
+      description: Altera uma nova feira
+      parameters:
+      - description: feira
+        in: body
+        name: feira
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateFeiraRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Feira'
+      summary: Altera um registro de feira
+      tags:
+      - feira
+  /api/feiras/{nome_feira}/nomes:
+    get:
+      consumes:
+      - application/json
+      description: Obtem uma feira usando o nome da feira
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Feira'
+      summary: Obtem um registro de feira a partir de um nome
+      tags:
+      - feira
+swagger: "2.0"

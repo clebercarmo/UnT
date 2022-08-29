@@ -11,7 +11,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} domain.Feira
-// @Router /feira/1 [delete]
+// @Router /api/feiras/{id} [delete]
 func (service service) Delete(response http.ResponseWriter, request *http.Request) {
 	feiraRequest, err := dto.FromJSONDeleteFeiraRequest(request.Body)
 
