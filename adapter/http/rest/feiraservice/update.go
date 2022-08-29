@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"utest/core/dto"
-
+	"utest/shared"
 	"github.com/gorilla/mux"
 )
 
@@ -25,6 +25,7 @@ func (service service) Update(response http.ResponseWriter, request *http.Reques
 	if err != nil {
 		response.WriteHeader(500)
 		response.Write([]byte(err.Error()))
+		shared.SetLog("Error", err.Error())
 		return
 	}
 
@@ -34,6 +35,7 @@ func (service service) Update(response http.ResponseWriter, request *http.Reques
 		response.WriteHeader(404)
 		var body = Body{Detail: err.Error()}
 		json.NewEncoder(response).Encode(body)
+		shared.SetLog("Error", err.Error())
 		return
 	}
 

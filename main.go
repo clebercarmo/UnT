@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	_ "utest/adapter/http/rest/docs"
 	"utest/adapter/http/rest/middleware"
@@ -37,12 +36,15 @@ func main() {
 	ctx := context.Background()
 	conn := postgres.GetConnection(ctx)
 	defer conn.Close()
-
+	shared.SetLog("Info", "Executando Migrations")
 	postgres.RunMigrations()
+	shared.SetLog("Info", "Migration executada")
 	feiraService := di.ConfigFeiraDI(conn)
 	
-	//IMPORTA DADOS
+	
+	shared.SetLog("Info", "Importando dados")
 	shared.ImportarDados()
+	shared.SetLog("Info", "Dados importados")
 
 	router := mux.NewRouter()
 
@@ -57,8 +59,8 @@ func main() {
 	jsonApiRouter.Handle("/api/feiras/{nome_feira}/nomes", http.HandlerFunc(feiraService.GetNome)).Methods("GET")
 
 	serverport := viper.GetString("server.port")
-
-	log.Printf("LISTEN ON PORT: %v", serverport)
+	
+	shared.SetLog("Info", "Servidor disponivel na porta 3000")
 	http.ListenAndServe(fmt.Sprintf(":%v", serverport), router)
 
 }

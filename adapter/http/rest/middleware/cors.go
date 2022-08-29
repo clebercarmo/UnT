@@ -2,7 +2,7 @@ package middleware
 
 import "net/http"
 
-//Cors config enabled to all origin
+//Cors habilita all origins
 func Cors(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
 		response.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, DELETE, PUT, GET")

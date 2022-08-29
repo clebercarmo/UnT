@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"utest/core/dto"
+	"utest/shared"
 )
 
 // @Summary Cria um registro de feira
@@ -22,12 +23,14 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		response.Write([]byte(err.Error()))
 		return
 	}
-
+	shared.SetLog("Info", "Criando feira " + feiraRequest.NomeFreira)
 	feira, err := service.usecase.Create(feiraRequest)
+	shared.SetLog("Info", "Feira " + feiraRequest.NomeFreira + "Criada com Sucesso!")
 
 	if err != nil {
 		response.WriteHeader(500)
 		response.Write([]byte(err.Error()))
+		shared.SetLog("Error", err.Error())
 		return
 	}
 
