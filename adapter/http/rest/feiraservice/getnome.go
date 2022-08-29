@@ -24,8 +24,8 @@ func (service service) GetNome(response http.ResponseWriter, request *http.Reque
 
 	if feira.ID == 0 {
 		response.WriteHeader(404)
-		var body = Body{Detail: err.Error()}
-		shared.SetLog("Error", err.Error())
+		var body = Body{Detail: "registro não encontrado"}
+		shared.SetLog("Error", "registro não encontrado")
 		json.NewEncoder(response).Encode(body)
 		return
 	}

@@ -25,7 +25,6 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 	}
 	shared.SetLog("Info", "Criando feira " + feiraRequest.NomeFreira)
 	feira, err := service.usecase.Create(feiraRequest)
-	shared.SetLog("Info", "Feira " + feiraRequest.NomeFreira + "Criada com Sucesso!")
 
 	if err != nil {
 		response.WriteHeader(500)
@@ -33,6 +32,7 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		shared.SetLog("Error", err.Error())
 		return
 	}
-
+	
+	shared.SetLog("Info", "Feira " + feiraRequest.NomeFreira + "Criada com Sucesso!")
 	json.NewEncoder(response).Encode(feira)
 }
