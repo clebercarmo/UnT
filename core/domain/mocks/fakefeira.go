@@ -107,7 +107,7 @@ func (mr *MockFeiraUseCaseMockRecorder) Create(FeiraRequest interface{}) *gomock
 
 
 // Update mocks base method.
-func (m *MockFeiraUseCase) Update(FeiraRequest *dto.UpdateFeiraRequest) (*domain.Feira, error) {
+func (m *MockFeiraUseCase) Update(id int, FeiraRequest *dto.UpdateFeiraRequest) (*domain.Feira, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", FeiraRequest)
 	ret0, _ := ret[0].(*domain.Feira)
@@ -123,9 +123,9 @@ func (mr *MockFeiraUseCaseMockRecorder) Update(FeiraRequest interface{}) *gomock
 
 
 // GetNome mocks base method.
-func (m *MockFeiraUseCase) GetNome(FeiraRequest *dto.GetNomeRequest) (*domain.Feira, error) {
+func (m *MockFeiraUseCase) GetNome(nome string) (*domain.Feira, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetNome", FeiraRequest)
+	ret := m.ctrl.Call(m, "GetNome", nome)
 	ret0, _ := ret[0].(*domain.Feira)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
@@ -138,17 +138,17 @@ func (mr *MockFeiraUseCaseMockRecorder) GetNome(FeiraRequest interface{}) *gomoc
 }
 
 // Delete mocks base method.
-func (m *MockFeiraUseCase) Delete(FeiraRequest *dto.DeleteFeiraRequest) error {
+func (m *MockFeiraUseCase) Delete(id int) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Delete", FeiraRequest)
+	ret := m.ctrl.Call(m, "Delete", id)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// Update indicates an expected call of Create.
-func (mr *MockFeiraUseCaseMockRecorder) Delete(FeiraRequest interface{}) *gomock.Call {
+// Delete indicates an expected call of Create.
+func (mr *MockFeiraUseCaseMockRecorder) Delete(id int) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockFeiraUseCase)(nil).Delete), FeiraRequest)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockFeiraUseCase)(nil).Delete), id)
 }
 
 
@@ -191,9 +191,9 @@ func (mr *MockFeiraRepositoryMockRecorder) Create(FeiraRequest interface{}) *gom
 }
 
 // Create mocks base method.
-func (m *MockFeiraRepository) GetNome(FeiraRequest *dto.GetNomeRequest) (*domain.Feira, error) {
+func (m *MockFeiraRepository) GetNome(nome string) (*domain.Feira, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetNome", FeiraRequest)
+	ret := m.ctrl.Call(m, "GetNome", nome)
 	ret0, _ := ret[0].(*domain.Feira)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
@@ -208,7 +208,7 @@ func (mr *MockFeiraRepositoryMockRecorder) GetNome(FeiraRequest interface{}) *go
 
 
 // Update mocks base method.
-func (m *MockFeiraRepository) Update(FeiraRequest *dto.UpdateFeiraRequest) (*domain.Feira, error) {
+func (m *MockFeiraRepository) Update(id int, FeiraRequest *dto.UpdateFeiraRequest) (*domain.Feira, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", FeiraRequest)
 	ret0, _ := ret[0].(*domain.Feira)
@@ -223,9 +223,9 @@ func (mr *MockFeiraRepositoryMockRecorder) Update(FeiraRequest interface{}) *gom
 }
 
 // Delete mocks base method.
-func (m *MockFeiraRepository) Delete(FeiraRequest *dto.DeleteFeiraRequest) error {
+func (m *MockFeiraRepository) Delete(id int) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Delete", FeiraRequest)
+	ret := m.ctrl.Call(m, "Delete", id)
 	ret0, _ := ret[0].(error)
 	return ret0
 }

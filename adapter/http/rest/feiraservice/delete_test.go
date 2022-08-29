@@ -10,18 +10,27 @@ import (
 	"github.com/golang/mock/gomock"
 )
 
-func setupDelete(t *testing.T) (*gomock.Controller) {	
+
+type Request struct {
+	Body string
+}
+
+func setupDelete(t *testing.T) (Request, *gomock.Controller) {	
+
+	requestParams := Request{
+		Body: "{}",
+	}
 
 	mockCtrl := gomock.NewController(t)
 
-	return  mockCtrl
+	return requestParams, mockCtrl
 }
 
 func TestDelete(t *testing.T) {
-	mock := setupDelete(t)
+	_, mock := setupDelete(t)
 	defer mock.Finish()
 	mockFeiraUseCase := mocks.NewMockFeiraUseCase(mock)
-	mockFeiraUseCase.EXPECT().Delete(1).Return(nil)
+	mockFeiraUseCase.EXPECT().Delete(0).Return(nil)
 
 	sut := feiraservice.New(mockFeiraUseCase)
 
@@ -39,10 +48,10 @@ func TestDelete(t *testing.T) {
 }
 
 func TestDelete_PorductError(t *testing.T) {
-	mock := setupDelete(t)
+	_, mock := setupDelete(t)
 	defer mock.Finish()
 	mockFeiraUseCase := mocks.NewMockFeiraUseCase(mock)
-	mockFeiraUseCase.EXPECT().Delete(1).Return(nil, fmt.Errorf("ANY ERROR"))
+	mockFeiraUseCase.EXPECT().Delete(0).Return(fmt.Errorf("ANY ERROR"))
 
 	sut := feiraservice.New(mockFeiraUseCase)
 

@@ -3,14 +3,13 @@ package feirarepository
 import (
 	"context"
 	"utest/core/domain"
-	"utest/core/dto"
 )
 
-func (repository repository) GetNome(feiraRequest *dto.GetNomeRequest)  (*domain.Feira, error){
+func (repository repository) GetNome(nome string)  (*domain.Feira, error){
 
 	var feira domain.Feira
 
-	rows, err := repository.db.Query(context.Background(), "SELECT * FROM feira WHERE nomefreira=$1", feiraRequest.NomeFreira)
+	rows, err := repository.db.Query(context.Background(), "SELECT * FROM feira WHERE nomefreira=$1", nome)
 	if err != nil {
 		return nil, err
 	}

@@ -18,7 +18,7 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 	feiraRequest, err := dto.FromJSONCreateFeiraRequest(request.Body)
 
 	if err != nil {
-		response.WriteHeader(250)
+		response.WriteHeader(500)
 		response.Write([]byte(err.Error()))
 		return
 	}

@@ -48,8 +48,8 @@ func main() {
 	jsonApiRouter.Use(middleware.Cors)
 
 	jsonApiRouter.Handle("/api/feiras", http.HandlerFunc(feiraService.Create)).Methods("POST", "OPTIONS")
-	jsonApiRouter.Handle("/api/feiras/{id}", http.HandlerFunc(feiraService.Update)).Methods("PUT")
-	jsonApiRouter.Handle("/api/feiras/{id}", http.HandlerFunc(feiraService.Update)).Methods("DELETE")
+	jsonApiRouter.Handle("/api/feiras/{id:[0-9]+}", http.HandlerFunc(feiraService.Update)).Methods("PUT")
+	jsonApiRouter.Handle("/api/feiras/{id}", http.HandlerFunc(feiraService.Delete)).Methods("DELETE")
 	jsonApiRouter.Handle("/api/feiras/{nome_feira}/nomes", http.HandlerFunc(feiraService.GetNome)).Methods("GET")
 
 	serverport := viper.GetString("server.port")

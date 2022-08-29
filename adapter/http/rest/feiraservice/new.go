@@ -2,6 +2,11 @@ package feiraservice
 
 import "utest/core/domain"
 
+type Body struct{
+
+	Detail string `json:"detail"`
+}
+
 type service struct {
 	usecase domain.FeiraUseCase
 }

@@ -3,7 +3,6 @@ package feirausecase_test
 import (
 	"fmt"
 	"testing"
-	"utest/core/dto"
 	"utest/core/domain"
 	"utest/core/domain/mocks"
 	"utest/core/usecase/feirausecase"
@@ -13,34 +12,30 @@ import (
 )
 
 func TestDelete(t *testing.T) {
-	fakeRequestFeira := dto.DeleteFeiraRequest{}
 	fakeDBFeira := domain.Feira{}
-	faker.FakeData(&fakeRequestFeira)
 	faker.FakeData(&fakeDBFeira)
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 	mockFeiraRepository := mocks.NewMockFeiraRepository(mockCtrl)
-	mockFeiraRepository.EXPECT().Delete(&fakeRequestFeira).Return(nil)
+	mockFeiraRepository.EXPECT().Delete(0).Return(nil)
 
 	sut := feirausecase.New(mockFeiraRepository)
-	err := sut.Delete(&fakeRequestFeira)
+	err := sut.Delete(0)
 
 	require.Nil(t, err)
 	
 }
 
 func TestDelete_Error(t *testing.T) {
-	fakeRequestFeira := dto.DeleteFeiraRequest{}
-	faker.FakeData(&fakeRequestFeira)
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 	mockFeiraRepository := mocks.NewMockFeiraRepository(mockCtrl)
-	mockFeiraRepository.EXPECT().Delete(&fakeRequestFeira).Return(fmt.Errorf("ANY ERROR"))
+	mockFeiraRepository.EXPECT().Delete(0).Return(fmt.Errorf("ANY ERROR"))
 
 	sut := feirausecase.New(mockFeiraRepository)
-	err := sut.Delete(&fakeRequestFeira)
+	err := sut.Delete(0)
 
 	require.NotNil(t, err)
 }

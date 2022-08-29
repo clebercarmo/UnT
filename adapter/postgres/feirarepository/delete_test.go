@@ -4,54 +4,41 @@ import (
 	"fmt"
 	"testing"
 	"utest/adapter/postgres/feirarepository"
-	"utest/core/dto"
-	"github.com/bxcodec/faker/v4"
 	"github.com/pashagolub/pgxmock"
 	"github.com/stretchr/testify/require"
 )
 
-func setupDelete() (dto.DeleteFeiraRequest, pgxmock.PgxPoolIface) {	
-	fakeFeiraRequest := dto.DeleteFeiraRequest{}
-	faker.FakeData(&fakeFeiraRequest)
+func setupDelete() (pgxmock.PgxPoolIface) {	
 
 	mock, _ := pgxmock.NewPool()
 
-	return fakeFeiraRequest,  mock
+	return  mock
 }
 func TestDelete(t *testing.T) {
 
 
-	fakeFeiraRequest,  mock := setupDelete()
+	mock := setupDelete()
 	defer mock.Close()
 
 	mock.ExpectQuery("delete from freira (.+)").
 		WithArgs(1).RowsWillBeClosed()
 
 	sut := feirarepository.New(mock)
-	err := sut.Delete(&fakeFeiraRequest)
-
-	if err := mock.ExpectationsWereMet(); err != nil {
-		t.Errorf("there were unfulfilled expectations: %s", err)
-	}
-
+	err := sut.Delete(1)
 
 	require.NotNil(t, err)
 }
 
 func TestDelete_DBError(t *testing.T) {
-	fakeFeiraRequest,mock := setupDelete()
+	mock := setupDelete()
 	defer mock.Close()
 
 	mock.ExpectQuery("delete from feira where id (.+)").WithArgs(
-		fakeFeiraRequest.Id       ,	
+		1       ,	
 	).WillReturnError(fmt.Errorf("ANY DATABASE ERROR"))
 
 	sut := feirarepository.New(mock)
-	err := sut.Delete(&fakeFeiraRequest)
-
-	if err := mock.ExpectationsWereMet(); err != nil {
-		t.Errorf("there were unfulfilled expectations: %s", err)
-	}
-
+	err := sut.Delete(1)
+	
 	require.NotNil(t, err)
 }

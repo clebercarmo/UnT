@@ -5,7 +5,6 @@ import (
 	"testing"
 	"utest/core/domain"
 	"utest/core/domain/mocks"
-	"utest/core/dto"
 	"utest/core/usecase/feirausecase"
 
 	"github.com/bxcodec/faker/v4"
@@ -14,18 +13,16 @@ import (
 )
 
 func TestGetNome(t *testing.T) {
-	fakeRequestFeira := dto.GetNomeRequest{}
 	fakeDBFeira := domain.Feira{}
-	faker.FakeData(&fakeRequestFeira)
 	faker.FakeData(&fakeDBFeira)
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 	mockFeiraRepository := mocks.NewMockFeiraRepository(mockCtrl)
-	mockFeiraRepository.EXPECT().GetNome(&fakeRequestFeira).Return(&fakeDBFeira, nil)
+	mockFeiraRepository.EXPECT().GetNome("MANTIQUEIRA").Return(&fakeDBFeira, nil)
 
 	sut := feirausecase.New(mockFeiraRepository)
-	feira, err := sut.GetNome(&fakeRequestFeira)
+	feira, err := sut.GetNome("MANTIQUEIRA")
 
 	require.Nil(t, err)
 	require.NotEmpty(t, feira.ID)
@@ -49,16 +46,16 @@ func TestGetNome(t *testing.T) {
 }
 
 func TestGetNome_Error(t *testing.T) {
-	fakeRequestFeira := dto.GetNomeRequest{}
-	faker.FakeData(&fakeRequestFeira)
+	fakeDBFeira := domain.Feira{}
+	faker.FakeData(&fakeDBFeira)
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 	mockFeiraRepository := mocks.NewMockFeiraRepository(mockCtrl)
-	mockFeiraRepository.EXPECT().GetNome(&fakeRequestFeira).Return(nil, fmt.Errorf("ANY ERROR"))
+	mockFeiraRepository.EXPECT().GetNome("MANTIQUEIRA").Return(nil, fmt.Errorf("ANY ERROR"))
 
 	sut := feirausecase.New(mockFeiraRepository)
-	feira, err := sut.GetNome(&fakeRequestFeira)
+	feira, err := sut.GetNome("MANTIQUEIRA")
 
 	require.NotNil(t, err)
 	require.Nil(t, feira)

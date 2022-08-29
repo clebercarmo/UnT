@@ -25,7 +25,7 @@ func TestUpdate(t *testing.T) {
 	mockFeiraRepository.EXPECT().Update(&fakeRequestFeira).Return(&fakeDBFeira, nil)
 
 	sut := feirausecase.New(mockFeiraRepository)
-	feira, err := sut.Update(&fakeRequestFeira)
+	feira, err := sut.Update(1, &fakeRequestFeira)
 
 	require.Nil(t, err)
 	require.NotEmpty(t, feira.ID)
@@ -57,7 +57,7 @@ func TestUpdate_Error(t *testing.T) {
 	mockFeiraRepository.EXPECT().Update(&fakeRequestFeira).Return(nil, fmt.Errorf("ANY ERROR"))
 
 	sut := feirausecase.New(mockFeiraRepository)
-	feira, err := sut.Update(&fakeRequestFeira)
+	feira, err := sut.Update(1, &fakeRequestFeira)
 
 	require.NotNil(t, err)
 	require.Nil(t, feira)

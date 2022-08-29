@@ -5,29 +5,26 @@ import (
 	"testing"
 	"utest/adapter/postgres/feirarepository"
 	"utest/core/domain"
-	"utest/core/dto"
 	"github.com/bxcodec/faker/v4"
 	"github.com/pashagolub/pgxmock"
 	"github.com/stretchr/testify/require"
 )
 
-func setupGetNome() ([]string, dto.GetNomeRequest, domain.Feira, pgxmock.PgxPoolIface) {
-	cols := []string{"long" ,"lat","setcens","areap","coddist","distrito","codsubpref","subprere","regiao5","regiao8","nomefreira","registo","logradouro","numero","bairro","referencia"}
-	fakeFeiraRequest := dto.GetNomeRequest{}
+func setupGetNome() ([]string,  domain.Feira, pgxmock.PgxPoolIface) {
+	cols := []string{"long" ,"lat","setcens","areap","coddist","distrito","codsubpref","subprere","regiao5","regiao8","nomefreira","registo","logradouro","numero","bairro","referencia"}	
 	fakeFeiraDBResponse := domain.Feira{}
-	faker.FakeData(&fakeFeiraRequest)
 	faker.FakeData(&fakeFeiraDBResponse)
 
 	mock, _ := pgxmock.NewPool()
 
-	return cols, fakeFeiraRequest, fakeFeiraDBResponse, mock
+	return cols, fakeFeiraDBResponse, mock
 }
 
 func TestGetNome(t *testing.T) {
-	cols, fakeFeiraRequest, fakeFeiraDBResponse, mock := setupGetNome()
+	cols, fakeFeiraDBResponse, mock := setupGetNome()
 	defer mock.Close()
-	mock.ExpectQuery("SELECT * FROM feira WHERE (.+)").WithArgs(
-		fakeFeiraRequest.NomeFreira,
+	mock.ExpectQuery("SELECT * FROM feira where(.+)").WithArgs(
+		"MANTIQUEIRA",
 		
 	).WillReturnRows(pgxmock.NewRows(cols).AddRow(
 		fakeFeiraDBResponse.Long       ,  	
@@ -50,12 +47,9 @@ func TestGetNome(t *testing.T) {
 
 	
 	sut := feirarepository.New(mock)
-	feira, err := sut.GetNome(&fakeFeiraRequest)
+	feira, err := sut.GetNome("MANTIQUEIRA")
 
-	if err := mock.ExpectationsWereMet(); err != nil {
-		t.Errorf("there were unfulfilled expectations: %s", err)
-	}
-
+	
 	require.Nil(t, err)
 	require.Equal(t, feira.Long, fakeFeiraDBResponse.Long)
 	require.Equal(t, feira.Lat, fakeFeiraDBResponse.Lat)
@@ -76,20 +70,17 @@ func TestGetNome(t *testing.T) {
 }
 
 func TestGetNome_DBError(t *testing.T) {
-	_, fakeFeiraRequest, _, mock := setupGetNome()
+	_,  _, mock := setupGetNome()
 	defer mock.Close()
 
 	mock.ExpectQuery("update freira set (.+)").WithArgs(
-		fakeFeiraRequest.NomeFreira, 
+		"MANTIQUEIRA", 
 		
 	).WillReturnError(fmt.Errorf("ANY DATABASE ERROR"))
 
 	sut := feirarepository.New(mock)
-	feira, err := sut.GetNome(&fakeFeiraRequest)
+	feira, err := sut.GetNome("MANTIQUEIRA")
 
-	if err := mock.ExpectationsWereMet(); err != nil {
-		t.Errorf("there were unfulfilled expectations: %s", err)
-	}
 
 	require.NotNil(t, err)
 	require.Nil(t, feira)

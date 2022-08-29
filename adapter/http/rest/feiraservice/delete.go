@@ -1,9 +1,12 @@
 package feiraservice
 
 import (
+	"encoding/json"
 	"net/http"
-	"utest/core/dto"
+	"strconv"
+	"github.com/gorilla/mux"
 )
+
 
 // @Summary Apaga um registro de feira
 // @Description Apaga uma feira
@@ -13,20 +16,21 @@ import (
 // @Success 200 {object} domain.Feira
 // @Router /api/feiras/{id} [delete]
 func (service service) Delete(response http.ResponseWriter, request *http.Request) {
-	feiraRequest, err := dto.FromJSONDeleteFeiraRequest(request.Body)
+	vars := mux.Vars(request)
+	id, _ := strconv.Atoi(vars["id"])
+
+
+	err := service.usecase.Delete(id)
 
 	if err != nil {
-		response.WriteHeader(250)
-		response.Write([]byte(err.Error()))
+		response.WriteHeader(404)
+		var body = Body{Detail: err.Error()}
+		json.NewEncoder(response).Encode(body)
 		return
 	}
 
-	err = service.usecase.Delete(feiraRequest)
+	var body = Body{Detail: "Excluido com sucesso"}
 
-	if err != nil {
-		response.WriteHeader(500)
-		response.Write([]byte(err.Error()))
-		return
-	}
+	json.NewEncoder(response).Encode(body)
 
 }

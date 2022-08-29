@@ -5,8 +5,8 @@ import (
 	"utest/core/domain"
 )
 
-func (usecase usecase) Update(feiraUpdateRequest *dto.UpdateFeiraRequest) (*domain.Feira, error) {
-	feira, err := usecase.repository.Update(feiraUpdateRequest)
+func (usecase usecase) Update(id int,  feiraUpdateRequest *dto.UpdateFeiraRequest) (*domain.Feira, error) {
+	feira, err := usecase.repository.Update(id, feiraUpdateRequest)
 
 	if err != nil {
 		return nil, err

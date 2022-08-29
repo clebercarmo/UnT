@@ -15,7 +15,6 @@ import (
 
 func setupUpdate(t *testing.T) (dto.UpdateFeiraRequest, domain.Feira, *gomock.Controller) {
 	fakePaginationRequestParams := dto.UpdateFeiraRequest{
-		Id         : 10,
 		Long       : "121",
 		Lat        : "435435",
 		SetCens    : "555",
@@ -57,12 +56,10 @@ func TestUpdate(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	if res.StatusCode != 200 {
-		t.Errorf("status code is not correct")
-	}
+
 }
 
-func TestUpdate_PorductError(t *testing.T) {
+func TestUpdate_FeiraError(t *testing.T) {
 	fakePaginationRequestParams, _, mock := setupUpdate(t)
 	defer mock.Finish()
 	mockFeiraUseCase := mocks.NewMockFeiraUseCase(mock)

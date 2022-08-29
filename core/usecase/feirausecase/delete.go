@@ -1,12 +1,8 @@
 package feirausecase
 
-import (
-	"utest/core/dto"
-)
 
-
-func (usecase usecase) Delete(feiraDeleteRequest *dto.DeleteFeiraRequest) (error) {
-	err := usecase.repository.Delete(feiraDeleteRequest)
+func (usecase usecase) Delete(id int) (error) {
+	err := usecase.repository.Delete(id)
 
 	if err != nil {
 		return err
