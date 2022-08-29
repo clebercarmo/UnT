@@ -3,15 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/spf13/viper"
-	"github.com/gorilla/mux"
-	httpSwagger "github.com/swaggo/http-swagger"
 	"log"
 	"net/http"
 	_ "utest/adapter/http/rest/docs"
 	"utest/adapter/http/rest/middleware"
 	"utest/adapter/postgres"
 	"utest/di"
+	"utest/shared"
+	"github.com/gorilla/mux"
+	"github.com/spf13/viper"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func init() {
@@ -39,6 +40,9 @@ func main() {
 
 	postgres.RunMigrations()
 	feiraService := di.ConfigFeiraDI(conn)
+	
+	//IMPORTA DADOS
+	shared.ImportarDados()
 
 	router := mux.NewRouter()
 
