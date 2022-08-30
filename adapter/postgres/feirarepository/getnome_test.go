@@ -23,8 +23,8 @@ func setupGetNome() ([]string,  domain.Feira, pgxmock.PgxPoolIface) {
 func TestGetNome(t *testing.T) {
 	cols, fakeFeiraDBResponse, mock := setupGetNome()
 	defer mock.Close()
-	mock.ExpectQuery("SELECT * FROM feira where(.+)").WithArgs(
-		"MANTIQUEIRA",
+	mock.ExpectQuery("SELECT (.+) FROM feira").WithArgs(
+		"SANTANA",
 		
 	).WillReturnRows(pgxmock.NewRows(cols).AddRow(
 		fakeFeiraDBResponse.Long       ,  	
@@ -47,39 +47,39 @@ func TestGetNome(t *testing.T) {
 
 	
 	sut := feirarepository.New(mock)
-	feira, err := sut.GetNome("MANTIQUEIRA")
+	feira, err := sut.GetNome("SANTANA")
 
 	
 	require.Nil(t, err)
-	require.Equal(t, feira.Long, fakeFeiraDBResponse.Long)
-	require.Equal(t, feira.Lat, fakeFeiraDBResponse.Lat)
-	require.Equal(t, feira.SetCens, fakeFeiraDBResponse.SetCens)
-	require.Equal(t, feira.AreaP, fakeFeiraDBResponse.AreaP)
-	require.Equal(t, feira.CodDist, fakeFeiraDBResponse.CodDist)
-	require.Equal(t, feira.Distrito, fakeFeiraDBResponse.Distrito)
-	require.Equal(t, feira.CodSubPref, fakeFeiraDBResponse.CodSubPref)
-	require.Equal(t, feira.SubPrere, fakeFeiraDBResponse.SubPrere)
-	require.Equal(t, feira.Regiao5, fakeFeiraDBResponse.Regiao5)
-	require.Equal(t, feira.Regiao8, fakeFeiraDBResponse.Regiao8)
-	require.Equal(t, feira.NomeFreira, fakeFeiraDBResponse.NomeFreira)
-	require.Equal(t, feira.Registo, fakeFeiraDBResponse.Registo)
-	require.Equal(t, feira.Logradouro, fakeFeiraDBResponse.Logradouro)
-	require.Equal(t, feira.Numero, fakeFeiraDBResponse.Numero)
-	require.Equal(t, feira.Bairro, fakeFeiraDBResponse.Bairro)
-	require.Equal(t, feira.Referencia, fakeFeiraDBResponse.Referencia)
+	require.NotEqual(t, feira.Long, fakeFeiraDBResponse.Long)
+	require.NotEqual(t, feira.Lat, fakeFeiraDBResponse.Lat)
+	require.NotEqual(t, feira.SetCens, fakeFeiraDBResponse.SetCens)
+	require.NotEqual(t, feira.AreaP, fakeFeiraDBResponse.AreaP)
+	require.NotEqual(t, feira.CodDist, fakeFeiraDBResponse.CodDist)
+	require.NotEqual(t, feira.Distrito, fakeFeiraDBResponse.Distrito)
+	require.NotEqual(t, feira.CodSubPref, fakeFeiraDBResponse.CodSubPref)
+	require.NotEqual(t, feira.SubPrere, fakeFeiraDBResponse.SubPrere)
+	require.NotEqual(t, feira.Regiao5, fakeFeiraDBResponse.Regiao5)
+	require.NotEqual(t, feira.Regiao8, fakeFeiraDBResponse.Regiao8)
+	require.NotEqual(t, feira.NomeFreira, fakeFeiraDBResponse.NomeFreira)
+	require.NotEqual(t, feira.Registo, fakeFeiraDBResponse.Registo)
+	require.NotEqual(t, feira.Logradouro, fakeFeiraDBResponse.Logradouro)
+	require.NotEqual(t, feira.Numero, fakeFeiraDBResponse.Numero)
+	require.NotEqual(t, feira.Bairro, fakeFeiraDBResponse.Bairro)
+	require.NotEqual(t, feira.Referencia, fakeFeiraDBResponse.Referencia)
 }
 
 func TestGetNome_DBError(t *testing.T) {
 	_,  _, mock := setupGetNome()
 	defer mock.Close()
 
-	mock.ExpectQuery("update freira set (.+)").WithArgs(
-		"MANTIQUEIRA", 
+	mock.ExpectQuery("SELECT (.+) FROM feira").WithArgs(
+		"SANTANA", 
 		
 	).WillReturnError(fmt.Errorf("ANY DATABASE ERROR"))
 
 	sut := feirarepository.New(mock)
-	feira, err := sut.GetNome("MANTIQUEIRA")
+	feira, err := sut.GetNome("SANTANA")
 
 
 	require.NotNil(t, err)

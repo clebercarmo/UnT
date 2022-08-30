@@ -68,7 +68,7 @@ func TestCreate_JsonErrorFormater(t *testing.T) {
 	}
 }
 
-func TestCreate_PorductError(t *testing.T) {
+func TestCreate_FeiraError(t *testing.T) {
 	fakeFeiraRequest, _, mock := setupCreate(t)
 	defer mock.Finish()
 	mockFeiraUseCase := mocks.NewMockFeiraUseCase(mock)

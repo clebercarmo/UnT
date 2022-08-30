@@ -116,9 +116,9 @@ func (m *MockFeiraUseCase) Update(id int, FeiraRequest *dto.UpdateFeiraRequest) 
 }
 
 // Update indicates an expected call of Create.
-func (mr *MockFeiraUseCaseMockRecorder) Update(FeiraRequest interface{}) *gomock.Call {
+func (mr *MockFeiraUseCaseMockRecorder) Update(id int, FeiraRequest *dto.UpdateFeiraRequest) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockFeiraUseCase)(nil).Update), FeiraRequest)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockFeiraUseCase)(nil).Update), id)
 }
 
 
@@ -132,9 +132,9 @@ func (m *MockFeiraUseCase) GetNome(nome string) (*domain.Feira, error) {
 }
 
 // GetNome indicates an expected call of Create.
-func (mr *MockFeiraUseCaseMockRecorder) GetNome(FeiraRequest interface{}) *gomock.Call {
+func (mr *MockFeiraUseCaseMockRecorder) GetNome(nome string) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNome", reflect.TypeOf((*MockFeiraUseCase)(nil).Update), FeiraRequest)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNome", reflect.TypeOf((*MockFeiraUseCase)(nil).Update), nome)
 }
 
 // Delete mocks base method.
