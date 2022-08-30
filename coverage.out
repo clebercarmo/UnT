@@ -1,4 +1,10 @@
 mode: set
+utest/core/dto/feira.go:49.78,51.74 2 1
+utest/core/dto/feira.go:55.2,55.33 1 1
+utest/core/dto/feira.go:51.74,53.3 1 1
+utest/core/dto/feira.go:59.78,61.74 2 1
+utest/core/dto/feira.go:65.2,65.33 1 1
+utest/core/dto/feira.go:61.74,63.3 1 1
 utest/core/usecase/feirausecase/getnome.go:8.68,11.16 2 1
 utest/core/usecase/feirausecase/getnome.go:15.2,15.19 1 1
 utest/core/usecase/feirausecase/getnome.go:11.16,13.3 1 1
@@ -12,12 +18,9 @@ utest/core/usecase/feirausecase/create.go:12.16,14.3 1 1
 utest/core/usecase/feirausecase/delete.go:4.47,7.16 2 1
 utest/core/usecase/feirausecase/delete.go:11.2,11.12 1 1
 utest/core/usecase/feirausecase/delete.go:7.16,9.3 1 1
-utest/core/dto/feira.go:49.78,51.74 2 1
-utest/core/dto/feira.go:55.2,55.33 1 1
-utest/core/dto/feira.go:51.74,53.3 1 1
-utest/core/dto/feira.go:59.78,61.74 2 1
-utest/core/dto/feira.go:65.2,65.33 1 1
-utest/core/dto/feira.go:61.74,63.3 1 1
+utest/adapter/postgres/feirarepository/create.go:12.26,55.16 4 1
+utest/adapter/postgres/feirarepository/create.go:59.2,59.20 1 1
+utest/adapter/postgres/feirarepository/create.go:55.16,57.3 1 1
 utest/adapter/postgres/feirarepository/delete.go:8.51,12.16 2 1
 utest/adapter/postgres/feirarepository/delete.go:15.2,15.36 1 0
 utest/adapter/postgres/feirarepository/delete.go:18.2,18.12 1 0
@@ -34,9 +37,6 @@ utest/adapter/postgres/feirarepository/update.go:39.2,39.36 1 0
 utest/adapter/postgres/feirarepository/update.go:43.2,60.20 17 0
 utest/adapter/postgres/feirarepository/update.go:35.16,37.3 1 1
 utest/adapter/postgres/feirarepository/update.go:39.36,41.3 1 0
-utest/adapter/postgres/feirarepository/create.go:12.26,55.16 4 1
-utest/adapter/postgres/feirarepository/create.go:59.2,59.20 1 1
-utest/adapter/postgres/feirarepository/create.go:55.16,57.3 1 1
 utest/adapter/http/rest/feiraservice/create.go:18.84,21.16 2 1
 utest/adapter/http/rest/feiraservice/create.go:26.2,29.16 3 1
 utest/adapter/http/rest/feiraservice/create.go:36.2,37.41 2 1
