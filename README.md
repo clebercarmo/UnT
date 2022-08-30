@@ -47,7 +47,7 @@ Testes e cobertura
 
 ```
 
-#### Exemplos das requisições
+### Exemplos das requisições e respostas
 
 http://localhost:3000/api/swagger/
 
@@ -56,11 +56,11 @@ http://localhost:3000/api/swagger/
 
 O log será salvo automaticamente na pasta com o nome info.log. Estruturado em duas categorias (Info / Error).
 
-Info: Descrição detalhada sobre um ponto relevante.
-Error: Erro ou indisponibilidade de atendimento da requisição.
+#### Info: Descrição detalhada sobre um ponto relevante.
+#### Error: Erro ou indisponibilidade de atendimento da requisição.
 
-Exemplo:
+#### Exemplo:
 
-2022-08-29T20:11:34.344-0300	INFO	shared/log.go:28	Dados importados
-2022-08-29T20:11:34.345-0300	INFO	shared/log.go:28	Servidor disponivel na porta 3000
-2022-08-29T20:11:55.773-0300	ERROR	shared/log.go:33	registro não encontrado
+2022-08-29T20:11:34.344-0300	INFO	shared/log.go:28	Dados importados   <br />
+2022-08-29T20:11:34.345-0300	INFO	shared/log.go:28	Servidor disponivel na porta 3000  <br />
+2022-08-29T20:11:55.773-0300	ERROR	shared/log.go:33	registro não encontrado  <br />
